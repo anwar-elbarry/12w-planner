@@ -15,7 +15,7 @@ export const BLOCKS = {
   apply: { id: "apply", time: "13:30", title: "Job applications · 3 to 5", detail: "Targeted: adapted CV + a short message. Start with companies that hire YouCode graduates.", kind: "apps" },
   french: { id: "french", time: "15:30", title: "French · 30 min", detail: "Interview French: your 2-minute intro, your projects, the 10 classic questions. Record yourself." },
   talk: { id: "talk", time: "Any time", title: "Speak French with a real person", detail: "A friend, a tutor or a language-exchange app. 15 minutes is enough." },
-  learn: { id: "learn", time: "16:00", title: "Learn · 1.5 h", detail: "One course at a time: Coursera, Spring, design, AI tools, or an open-source contribution." },
+  learn: { id: "learn", time: "16:00", title: "Learn Java/Spring · 1.5 h", detail: "This week's topic is on the Week page. Read 30 min, code a small example, then explain it out loud in French in 2 minutes." },
   post: { id: "post", time: "17:30", title: "Post your story", detail: "One post about what you built or learned this week." },
   gym: { id: "gym", time: "19:00", title: "Gym", detail: "Your stress control. Not optional." },
   plan: { id: "plan", time: "Evening", title: "Write tomorrow's 3 tasks", detail: "10 minutes before bed. Sleep before midnight." },
