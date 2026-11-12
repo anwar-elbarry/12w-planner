@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f4f6f4;
+  --surface: #ffffff;
+  --ink: #16201c;
+  --muted: #5a6762;
+  --line: #dbe2de;
+  --accent: #0e7a5c;
+  --accent-ink: #ffffff;
+  --accent-soft: #dff0e8;
+  --warn: #a5560b;
+  --warn-soft: #fbeedb;
+  --partial: #8fc9b3;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1311;
+    --surface: #161d1a;
+    --ink: #e4ebe7;
+    --muted: #97a49f;
+    --line: #28322e;
+    --accent: #4fc79f;
+    --accent-ink: #08130f;
+    --accent-soft: #173328;
+    --warn: #f0a457;
+    --warn-soft: #382917;
+    --partial: #2f6b55;
+    color-scheme: dark;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+}
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-weight: 500;
+}
+.btn:hover { border-color: var(--muted); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+
+.field {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

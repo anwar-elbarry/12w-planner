@@ -1,0 +1,86 @@
+// 12w-planner database schema.
+// Daily blocks (Build, Applications, French…) are defined in code (src/lib/blocks.ts);
+// the database only stores what you did.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// One row: the plan settings (start date, review day, gym days, targets).
+model Settings {
+  id             Int      @id @default(1)
+  startDate      DateTime @db.Date
+  reviewDate     DateTime @db.Date
+  gymDays        Int[]    // 0 = Sunday … 6 = Saturday
+  appsTargetDay  Int      @default(3)
+  appsTargetWeek Int      @default(15)
+  updatedAt      DateTime @updatedAt
+}
+
+/// What happened on one day.
+model DayLog {
+  date         DateTime     @id @db.Date
+  applications Int          @default(0)
+  replies      Int          @default(0)
+  note         String       @default("")
+  checks       BlockCheck[]
+  updatedAt    DateTime     @updatedAt
+}
+
+/// A daily block marked as done (e.g. "build" on 2026-11-13).
+model BlockCheck {
+  date    DateTime @db.Date
+  blockId String
+  day     DayLog   @relation(fields: [date], references: [date], onDelete: Cascade)
+
+  @@id([date, blockId])
+}
+
+model PlanMonth {
+  id     Int        @id @default(autoincrement())
+  order  Int        @unique
+  title  String
+  target String
+  weeks  PlanWeek[]
+}
+
+model PlanWeek {
+  number  Int        @id // 1-based week number of the plan
+  monthId Int
+  month   PlanMonth  @relation(fields: [monthId], references: [id], onDelete: Cascade)
+  tasks   PlanTask[]
+  review  WeekReview?
+}
+
+model PlanTask {
+  id         Int      @id @default(autoincrement())
+  weekNumber Int
+  order      Int
+  text       String
+  done       Boolean  @default(false)
+  week       PlanWeek @relation(fields: [weekNumber], references: [number], onDelete: Cascade)
+
+  @@unique([weekNumber, order])
+}
+
+/// The 3 weekly goals and the Sunday review.
+model WeekReview {
+  weekNumber Int       @id
+  goals      String[]  @default([])
+  goalsDone  Boolean[] @default([])
+  finished   String    @default("")
+  blocked    String    @default("")
+  next       String    @default("")
+  week       PlanWeek  @relation(fields: [weekNumber], references: [number], onDelete: Cascade)
+}
+
+/// Ideas parked until the review day.
+model LaterIdea {
+  id        Int      @id @default(autoincrement())
+  text      String
+  createdAt DateTime @default(now())
+}
